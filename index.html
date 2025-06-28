@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>JavaScript DOM Tasks</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 20px;
+      background: #f4f4f4;
+    }
+    .section {
+      background: #fff;
+      padding: 20px;
+      margin-bottom: 30px;
+      border-left: 4px solid #2196F3;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+      color: #2196F3;
+    }
+    label {
+      display: block;
+      margin-top: 10px;
+    }
+    input, select {
+      margin-top: 5px;
+      padding: 5px;
+      width: 200px;
+    }
+    button {
+      margin-top: 10px;
+      padding: 5px 15px;
+      }
+      
+      
+      
+  </style>
+</head>
+<body>
+
+  <!-- 1. Basic Info Form -->
+  <div class="section">
+    <h2>1. Basic Information Form</h2>
+    <form id="infoForm">
+      <label>Name: <input type="text" id="name" /></label>
+      <label>Mobile No: <input type="text" id="mobile" /></label>
+      <label>Email: <input type="email" id="email" /></label>
+      <label>Gender:
+        <input type="radio" name="gender" value="Male"> Male
+        <input type="radio" name="gender" value="Female"> Female
+      </label>
+      <label>Education:
+        <input type="checkbox" name="edu" value="10th"> 10th
+        <input type="checkbox" name="edu" value="12th"> 12th
+        <input type="checkbox" name="edu" value="Graduation"> Graduation
+      </label>
+      <label>Do you like tea?
+        <select id="tea">
+          <option value="Yes">Yes</option>
+          <option value="No">No</option>
+        </select>
+      </label>
+      <br>
+      <button type="button" onclick="showFormData()">Submit</button>
+    </form>
+    <div id="formOutput" style="margin-top: 20px;"></div>
+  </div>
+
+  <!-- 2. Change Image on Button Click -->
+  <div class="section">
+    <h2>2. Change Image on Button Click</h2>
+    <img id="myImage" src="ramji.avif" alt="Default Image" />
+    <br>
+    <button onclick="changeImage()">Change Image</button>
+  </div>
+
+  <!-- 3. Increase/Decrease Font Size -->
+  <div class="section">
+    <h2>3. Increase/Decrease Font Size</h2>
+    <p id="textPara">You can change the font size of the text.</p>
+    <button onclick="changeFontSize(2)">Increase</button>
+    <button onclick="changeFontSize(-2)">Decrease</button>
+  </div>
+
+  <!-- 4. Show Current Date & Time -->
+  <div class="section">
+    <h2>4. Show Current Date & Time</h2>
+    <button onclick="showDateTime()">Show Date & Time</button>
+    <p id="dateTimeOutput"></p>
+  </div>
+
+  <script>
+    // 1. Show form data on same page
+    function showFormData() {
+      const name = document.getElementById("name").value;
+      const mobile = document.getElementById("mobile").value;
+      const email = document.getElementById("email").value;
+      const gender = document.querySelector('input[name="gender"]:checked')?.value;
+      const education = [...document.querySelectorAll('input[name="edu"]:checked')].map(e => e.value);
+      const tea = document.getElementById("tea").value;
+
+      const output = `
+        <strong>Name:</strong> ${name}<br>
+        <strong>Mobile:</strong> ${mobile}<br>
+        <strong>Email:</strong> ${email}<br>
+        <strong>Gender:</strong> ${gender || "Not selected"}<br>
+        <strong>Education:</strong> ${education.join(", ") || "None"}<br>
+        <strong>Likes Tea:</strong> ${tea}
+      `;
+
+      document.getElementById("formOutput").innerHTML = output;
+    }
+
+    // 2. Change image on button click
+    function changeImage() {
+      document.getElementById("myImage").src = "siyaram.jpeg";
+    }
+
+    // 3. Increase or decrease font size
+    let currentFontSize = 16;
+    function changeFontSize(amount) {
+      currentFontSize += amount;
+      document.getElementById("textPara").style.fontSize = currentFontSize + "px";
+    }
+
+    // 4. Show current date & time
+    function showDateTime() {
+      const now = new Date();
+      const formatted = now.toLocaleString();
+      document.getElementById("dateTimeOutput").innerText = formatted;
+    }
+  </script>
+
+</body>
+</html>
